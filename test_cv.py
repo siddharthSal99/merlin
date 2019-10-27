@@ -2,6 +2,9 @@ from cv import find_chess_pose
 from cv import camera_params
 import cv2
 import time
+from cv import visualize as booty
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
 
 CAMERA_ID = 1
 CAMERA_WINDOW = "Camera Stream"
@@ -10,7 +13,7 @@ def loop():
 
     cap = cv2.VideoCapture(CAMERA_ID)
     chess_img_corners_list = []
-
+    fig = plt.figure()
     while(True):
         # Set out camera parameters for nice clean image
         camera_params.set_camera_params()
@@ -26,9 +29,10 @@ def loop():
         chess_img_corners_list.append(img_corners)
 
         # Calibrate camera
-        rms = find_chess_pose.calibrate_camera(chess_img_corners_list, 50, (9, 7), (1920, 1080))
-        print(rms)
-
+        cam_rms, cam_intrinsics, cam_dist_coeffs, cam_rvecs, cam_tvecs, chess_pts_list = find_chess_pose.calibrate_camera(chess_img_corners_list, 12, (9, 7), (1920, 1080))
+        #print(rms)
+        
+        booty.calibrate(cam_rvecs, cam_tvecs, chess_pts_list, fig)
         # resize
         small = cv2.resize(chess_img, (920, 640))
 
@@ -36,8 +40,8 @@ def loop():
         cv2.imshow(CAMERA_WINDOW, small)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
-        time.sleep(1)
+        
+        time.sleep(10)
 
     # When everything done, release the capture
     cap.release()

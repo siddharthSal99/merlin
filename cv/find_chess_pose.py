@@ -19,7 +19,7 @@ def calibrate_camera(img_pts_list, square_sidelength_m, chess_shape=(7, 9), cam_
     
     cam_rms, cam_intrinsics, cam_dist_coeffs, cam_rvecs, cam_tvecs = cv2.calibrateCamera(chess_pts_list, img_pts_list, cam_shape, None, None, None, None)
 
-    return cam_rms
+    return (cam_rms, cam_intrinsics, cam_dist_coeffs, cam_rvecs, cam_tvecs, chess_pts_list)
 
 if __name__ == "__main__":
     find_chess_corners('Unknown.jpeg', 3)
