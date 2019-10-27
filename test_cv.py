@@ -33,8 +33,10 @@ def loop():
         #print(rms)
         
         booty.calibrate(cam_rvecs, cam_tvecs, chess_pts_list, fig)
+        something = find_chess_pose.back_project_points(frame, cam_intrinsics, cam_dist_coeffs, chess_pts_list, img_corners)
+
         # resize
-        small = cv2.resize(chess_img, (920, 640))
+        small = cv2.resize(something, (920, 640))
 
         # Display the resulting frame
         cv2.imshow(CAMERA_WINDOW, small)
