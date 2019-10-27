@@ -1,4 +1,8 @@
 hackgt/
 *.pyc
+<<<<<<< HEAD
 pycache/
 .vscode/
+=======
+__pycache__/
+>>>>>>> 6a5f8c7f8fce2e5af3739d6b91d81ff8a10e4e48
