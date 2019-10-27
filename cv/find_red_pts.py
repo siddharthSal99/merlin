@@ -12,6 +12,8 @@ def extract_red_centroid(img):
     lower_red = np.array([170,50,50])
     upper_red = np.array([180,255,255])
     mask1 = cv2.inRange(hsv, lower_red, upper_red)
+    # cv2.imshow("", mask1)
+    # cv2.waitKey(0)
 
     # join my masks
     mask = mask0+mask1
@@ -56,7 +58,7 @@ def extract_blue_centroid(img):
 def main():
     circles = cv2.imread('test_imgs/corners.JPG')
     L = extract_red_centroid(circles)
-    print(len(L))
+    # print(len(L))
     for i in range(len(L)):
         cv2.circle(circles, L[i], 5, [0, 0, 0], -1)
         cv2.imshow("Image",circles)
